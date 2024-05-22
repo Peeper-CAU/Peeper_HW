@@ -303,26 +303,26 @@ static void stdin_process(char c)
         printf("Activate calling line notification\n");
         hfp_hf_activate_calling_line_notification(acl_handle);
         break;
-    case 'm':
-        log_info("USER:\'%c\'", cmd);
-        printf("Deactivate echo canceling and noise reduction\n");
-        hfp_hf_deactivate_echo_canceling_and_noise_reduction(acl_handle);
-        break;
-    case 'M':
-        log_info("USER:\'%c\'", cmd);
-        printf("Activate echo canceling and noise reduction\n");
-        hfp_hf_activate_echo_canceling_and_noise_reduction(acl_handle);
-        break;
-    case 'n':
-        log_info("USER:\'%c\'", cmd);
-        printf("Deactivate voice recognition\n");
-        hfp_hf_deactivate_voice_recognition_notification(acl_handle);
-        break;
-    case 'N':
-        log_info("USER:\'%c\'", cmd);
-        printf("Activate voice recognition %s\n", bd_addr_to_str(device_addr));
-        hfp_hf_activate_voice_recognition_notification(acl_handle);
-        break;
+    // case 'm':
+    //     log_info("USER:\'%c\'", cmd);
+    //     printf("Deactivate echo canceling and noise reduction\n");
+    //     hfp_hf_deactivate_echo_canceling_and_noise_reduction(acl_handle);
+    //     break;
+    // case 'M':
+    //     log_info("USER:\'%c\'", cmd);
+    //     printf("Activate echo canceling and noise reduction\n");
+    //     hfp_hf_activate_echo_canceling_and_noise_reduction(acl_handle);
+    //     break;
+    // case 'n':
+    //     log_info("USER:\'%c\'", cmd);
+    //     printf("Deactivate voice recognition\n");
+    //     hfp_hf_deactivate_voice_recognition_notification(acl_handle);
+    //     break;
+    // case 'N':
+    //     log_info("USER:\'%c\'", cmd);
+    //     printf("Activate voice recognition %s\n", bd_addr_to_str(device_addr));
+    //     hfp_hf_activate_voice_recognition_notification(acl_handle);
+    //     break;
     case 'o':
         log_info("USER:\'%c\'", cmd);
         printf("Set speaker gain to 0 (minimum)\n");
