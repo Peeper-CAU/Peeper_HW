@@ -17,7 +17,7 @@ void setup() {
   cfg.pin_data = 22;
   i2s.begin(cfg);
 
-  a2dp_sink.start("Capstone");
+  a2dp_sink.start("PEEPER");
   a2dp_sink.set_stream_reader(read_data_stream);
 }
 
