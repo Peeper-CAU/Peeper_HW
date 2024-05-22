@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 BlueKitchen GmbH
+ * Copyright (C) 2016 BlueKitchen GmbH
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -13,8 +13,11 @@
  * 3. Neither the name of the copyright holders nor the names of
  *    contributors may be used to endorse or promote products derived
  *    from this software without specific prior written permission.
+ * 4. Any redistribution, use, or modification is done solely for
+ *    personal benefit and not for any commercial purpose or for
+ *    monetary gain.
  *
- * THIS SOFTWARE IS PROVIDED BY MATTHIAS RINGWALD AND CONTRIBUTORS
+ * THIS SOFTWARE IS PROVIDED BY BLUEKITCHEN GMBH AND CONTRIBUTORS
  * ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
  * FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL MATTHIAS
@@ -27,46 +30,54 @@
  * THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
  * SUCH DAMAGE.
  *
+ * Please inquire about commercial licensing options at 
+ * contact@bluekitchen-gmbh.com
+ *
  */
 
 /*
- *  main.c
- *
- *  Minimal main application that initializes BTstack, prepares the example and enters BTstack's Run Loop.
- *
- *  If needed, you can create other threads. Please note that BTstack's API is not thread-safe and can only be
- *  called from BTstack timers or in response to its callbacks, e.g. packet handlers.
+ * sco_demo_util.h - send/receive test data via SCO, used by hfp_*_demo and hsp_*_demo
  */
 
-#include "btstack_port_esp32.h"
-#include "btstack_run_loop.h"
-#include "btstack_audio.h"
-#include "hci_dump.h"
-#include "hci_dump_embedded_stdout.h"
-#include "microphone.h"
-#include "speaker.h"
+#ifndef SCO_DEMO_UTIL_H
+#define SCO_DEMO_UTIL_H
 
-#include <stddef.h>
+#include "hci.h"
 
-extern int btstack_main(int argc, const char *argv[]);
-
-int app_main(void)
+#if defined __cplusplus
+extern "C"
 {
-    // optional: enable packet logger
-    // hci_dump_init(hci_dump_embedded_stdout_get_instance());
+#endif
 
-    // Configure BTstack for ESP32 VHCI Controller
-    btstack_init();
+  /**
+ * @brief Init demo SCO data production/consumtion
+ */
+  void sco_demo_init(void);
 
-    // setup the audio sink and audio source - this overrides what was set in btstack_init()
-    btstack_audio_source_set_instance(btstack_audio_esp32_source_get_instance());
-    btstack_audio_sink_set_instance(btstack_audio_esp32_sink_get_instance());
+  /**
+ * @brief Set codec (cvsd:0x01, msbc:0x02) and initalize wav writter and portaudio .
+ * @param codec
+ */
+  void sco_demo_set_codec(uint8_t codec);
 
-    // Setup example
-    btstack_main(0, NULL);
+  /**
+ * @brief Send next data on con_handle
+ * @param con_handle
+ */
+  void sco_demo_send(hci_con_handle_t con_handle);
 
-    // Enter run loop (forever)
-    btstack_run_loop_execute();
+  /**
+ * @brief Process received data
+ */
+  void sco_demo_receive(uint8_t *packet, uint16_t size);
 
-    return 0;
+  /**
+ * @brief Close WAV writer, stop portaudio stream
+ */
+  void sco_demo_close(void);
+
+#if defined __cplusplus
 }
+#endif
+
+#endif
