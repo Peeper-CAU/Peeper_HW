@@ -29,6 +29,10 @@ void close_output_wav_file() {
 }
 
 void init_output_wav_file(const char *filename) {
+	if (output_wav_file) {
+		return;
+	}
+
 	init_spiffs();
 
     output_wav_file = fopen(filename, "wb");
