@@ -60,6 +60,7 @@
 #include "btstack.h"
 
 #include "sco_demo_util.h"
+#include "wav_util.h"
 
 uint8_t hfp_service_buffer[150];
 const uint8_t rfcomm_channel_nr = 1;
@@ -522,6 +523,7 @@ static void packet_handler(uint8_t packet_type, uint16_t channel, uint8_t *event
                 printf("Audio connection released\n");
 
 				printf("!!! CALL ENDED !!!\n");
+				close_output_wav_file();
                 sco_demo_close();
                 break;
             case HFP_SUBEVENT_COMPLETE:
@@ -546,6 +548,7 @@ static void packet_handler(uint8_t packet_type, uint16_t channel, uint8_t *event
 
 				if (strcmp(status_indicator_name, "callsetup") == 0){
 					printf("!!! CALL STARTED !!!\n");
+					init_output_wav_file("test.wav");
 				}
                 break;
             case HFP_SUBEVENT_NETWORK_OPERATOR_CHANGED:
