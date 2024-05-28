@@ -231,22 +231,27 @@ static void audio_terminate(void)
 
 #ifdef ENABLE_HFP_WIDE_BAND_SPEECH
 
+#define PCM_BUFFER_SIZE 240
+
+int16_t pcm_data[PCM_BUFFER_SIZE];
+int pcm_data_size = 0;
+
+static void log_pcm_data(const int16_t *pcm_data, int num_samples) {
+    for (int i = 0; i < num_samples; i++) {
+        printf("%d ", pcm_data[i]);
+        if (i % 20 == 19) {
+            printf("\n");
+        }
+    }
+    printf("\n");
+}
+
 static void handle_pcm_data(int16_t *data, int num_samples, int num_channels, int sample_rate, void *context)
 {
-    UNUSED(context);
-    UNUSED(sample_rate);
-    UNUSED(data);
-    UNUSED(num_samples);
-    UNUSED(num_channels);
+	memcpy(pcm_data, data, num_samples * sizeof(int16_t));
+    pcm_data_size = num_samples * sizeof(int16_t);
 
-#if (SCO_DEMO_MODE == SCO_DEMO_MODE_MICROPHONE)
-
-    // printf("handle_pcm_data num samples %u, sample rate %d\n", num_samples, num_channels);
-
-    // samples in callback in host endianess, ready for playback
-    btstack_ring_buffer_write(&audio_output_ring_buffer, (uint8_t *)data, num_samples * num_channels * 2);
-
-#endif /* Demo mode sine or microphone */
+    log_pcm_data(pcm_data, num_samples);
 }
 #endif /* ENABLE_HFP_WIDE_BAND_SPEECH */
 
