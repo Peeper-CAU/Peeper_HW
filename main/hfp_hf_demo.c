@@ -520,6 +520,8 @@ static void packet_handler(uint8_t packet_type, uint16_t channel, uint8_t *event
             case HFP_SUBEVENT_AUDIO_CONNECTION_RELEASED:
                 sco_handle = HCI_CON_HANDLE_INVALID;
                 printf("Audio connection released\n");
+
+				printf("!!! CALL ENDED !!!\n");
                 sco_demo_close();
                 break;
             case HFP_SUBEVENT_COMPLETE:
@@ -534,12 +536,17 @@ static void packet_handler(uint8_t packet_type, uint16_t channel, uint8_t *event
                 }
                 break;
             case HFP_SUBEVENT_AG_INDICATOR_STATUS_CHANGED:
+				const char *status_indicator_name = hfp_subevent_ag_indicator_status_changed_get_indicator_name(event);
                 printf("AG_INDICATOR_STATUS_CHANGED, AG indicator (index: %d) to: %d of range [%d, %d], name '%s'\n",
                        hfp_subevent_ag_indicator_status_changed_get_indicator_index(event),
                        hfp_subevent_ag_indicator_status_changed_get_indicator_status(event),
                        hfp_subevent_ag_indicator_status_changed_get_indicator_min_range(event),
                        hfp_subevent_ag_indicator_status_changed_get_indicator_max_range(event),
-                       (const char *)hfp_subevent_ag_indicator_status_changed_get_indicator_name(event));
+                       status_indicator_name);
+
+				if (strcmp(status_indicator_name, "callsetup") == 0){
+					printf("!!! CALL STARTED !!!\n");
+				}
                 break;
             case HFP_SUBEVENT_NETWORK_OPERATOR_CHANGED:
                 printf("NETWORK_OPERATOR_CHANGED, operator mode: %d, format: %d, name: %s\n",
