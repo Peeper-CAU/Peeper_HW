@@ -1,6 +1,11 @@
 #include "wav_util.h"
 
-static void init_output_wav_header(FILE *file, int sample_rate, int num_channels, int bits_per_sample, int num_samples);
+void write_wav_header(FILE *file, int sample_rate, int num_channels, int bits_per_sample, int num_samples);
+
+FILE	*output_wav_file;
+int16_t	pcm_data[PCM_BUFFER_SIZE];
+int		pcm_data_size = 0;
+int		total_wav_samples = 0;
 
 void log_pcm_data(const int16_t *pcm_data, int num_samples) {
     for (int i = 0; i < num_samples; i++) {
@@ -28,10 +33,10 @@ void init_output_wav_file(const char *filename) {
         return;
     }
 
-    init_output_wav_header(output_wav_file, 16000, 1, 16, 0);
+    write_wav_header(output_wav_file, 16000, 1, 16, 0);
 }
 
-static void init_output_wav_header(FILE *file, int sample_rate, int num_channels, int bits_per_sample, int num_samples) {
+void write_wav_header(FILE *file, int sample_rate, int num_channels, int bits_per_sample, int num_samples) {
     int byte_rate = sample_rate * num_channels * bits_per_sample / 8;
     int block_align = num_channels * bits_per_sample / 8;
     int subchunk2_size = num_samples * num_channels * bits_per_sample / 8;

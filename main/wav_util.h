@@ -5,10 +5,10 @@
 # include <stdio.h>
 # define PCM_BUFFER_SIZE 240
 
-FILE	*output_wav_file;
-int16_t	pcm_data[PCM_BUFFER_SIZE];
-int		pcm_data_size = 0;
-int		total_wav_samples = 0;
+extern FILE	*output_wav_file;
+extern int16_t	pcm_data[PCM_BUFFER_SIZE];
+extern int		pcm_data_size;
+extern int		total_wav_samples;
 
 void	log_pcm_data(const int16_t *pcm_data, int num_samples);
 
