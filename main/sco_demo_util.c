@@ -30,7 +30,7 @@
  * THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
  * SUCH DAMAGE.
  *
- * Please inquire about commercial licensing options at 
+ * Please inquire about commercial licensing options at
  * contact@bluekitchen-gmbh.com
  *
  */
@@ -264,7 +264,11 @@ static void sco_demo_init_mSBC(void)
 
 static void sco_demo_receive_mSBC(uint8_t *packet, uint16_t size)
 {
-    btstack_sbc_decoder_process_data(&decoder_state, (packet[1] >> 4) & 3, packet + 3, size - 3);
+	int packet_status_flag = (packet[1] >> 4) & 3;
+    const uint8_t *msbc_data = packet + 3;
+    int msbc_data_size = size - 3;
+
+    btstack_sbc_decoder_process_data(&decoder_state, packet_status_flag, msbc_data, msbc_data_size);
 }
 #endif
 
