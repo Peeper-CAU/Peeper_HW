@@ -3,9 +3,13 @@
 
 # include <stdint.h>
 # include <stdio.h>
+# include "esp_log.h"
+# include "esp_spiffs.h"
+# include "esp_system.h"
+
 # define PCM_BUFFER_SIZE 240
 
-extern FILE	*output_wav_file;
+extern FILE		*output_wav_file;
 extern int16_t	pcm_data[PCM_BUFFER_SIZE];
 extern int		pcm_data_size;
 extern int		total_wav_samples;
