@@ -53,7 +53,7 @@
 #include "classic/hfp.h"
 #include "classic/hfp_msbc.h"
 
-#include "wav_util.h"
+#include "ble_pcm_util.h"
 
 // number of sco packets until 'report' on console
 #define SCO_REPORT_PERIOD 100

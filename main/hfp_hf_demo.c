@@ -60,7 +60,7 @@
 #include "btstack.h"
 
 #include "sco_demo_util.h"
-#include "wav_util.h"
+#include "ble_pcm_util.h"
 
 uint8_t hfp_service_buffer[150];
 const uint8_t rfcomm_channel_nr = 1;

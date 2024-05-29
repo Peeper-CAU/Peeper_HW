@@ -1,4 +1,4 @@
-#include "wav_util.h"
+#include "ble_pcm_util.h"
 
 void	init_spiffs();
 void	write_wav_header(FILE *file, int sample_rate, int num_channels, int bits_per_sample, int num_samples);

@@ -1,5 +1,5 @@
-#ifndef WAV_UTIL_H
-# define WAV_UTIL_H
+#ifndef BLE_PCM_UTIL_H
+# define BLE_PCM_UTIL_H
 
 # include <stdint.h>
 # include <stdio.h>
