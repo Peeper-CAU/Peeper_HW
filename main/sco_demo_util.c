@@ -238,13 +238,7 @@ static void handle_pcm_data(int16_t *data, int num_samples, int num_channels, in
 	memcpy(pcm_data, data, num_samples * sizeof(int16_t));
 	pcm_data_size = num_samples * sizeof(int16_t);
 
-	// log_pcm_data(pcm_data, num_samples);
-
-	if(output_wav_file) {
-		printf("Writed Data %d to File\n", pcm_data[0]);
-		fwrite(pcm_data, sizeof(int16_t), num_samples, output_wav_file);
-		total_wav_samples += num_samples;
-	}
+	log_pcm_data(pcm_data, num_samples);
 }
 #endif /* ENABLE_HFP_WIDE_BAND_SPEECH */
 
