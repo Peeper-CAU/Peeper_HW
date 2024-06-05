@@ -1,8 +1,10 @@
 #ifndef BLE_PCM_UTIL_H
 # define BLE_PCM_UTIL_H
 
+// # include <stddef.h>
 # include <stdint.h>
 # include <stdio.h>
+# include <string.h>
 
 # define PCM_BUFFER_SIZE 240
 
