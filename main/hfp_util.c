@@ -22,7 +22,7 @@ static void	hfp_packet_handler(uint8_t packet_type, uint16_t channel, uint8_t *p
 				printf("Sendable from Now");
 				break;
             case HCI_EVENT_COMMAND_COMPLETE:
-                printf("Command complete\n");
+                // printf("Command complete\n");
                 break;
 			case HCI_EVENT_HFP_META:
 				switch(hci_event_hfp_meta_get_subevent_code(packet))
