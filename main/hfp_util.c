@@ -72,7 +72,6 @@ void	init_hfp(void)
     hci_event_callback_registration.callback = &hfp_packet_handler;
     hci_add_event_handler(&hci_event_callback_registration);
     hci_register_sco_packet_handler(&hfp_packet_handler);
-    hci_register_sco_packet_handler(&hfp_packet_handler);
 
     hfp_hf_register_packet_handler(hfp_packet_handler);
 
