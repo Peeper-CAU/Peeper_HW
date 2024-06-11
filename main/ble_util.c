@@ -32,6 +32,20 @@ void	init_ble(void)
 	l2cap_init();
 	sm_init();
 
+	uint16_t adv_interval_min = 0x0020;
+    uint16_t adv_interval_max = 0x0030;
+    uint8_t adv_type = 0x00;
+    uint8_t own_address_type = 0x00;
+    uint8_t direct_address_type = 0x00;
+    uint8_t direct_address[6] = {0};
+    uint8_t adv_channel_map = 0x07;
+    uint8_t adv_filter_policy = 0x00;
+    gap_advertisements_set_params(adv_interval_min, adv_interval_max, adv_type,
+                                  direct_address_type, direct_address,
+                                  adv_channel_map, adv_filter_policy);
+
+	uint8_t adv_data[] = { 0x02, 0x01, 0x06 };
+    gap_advertisements_set_data(sizeof(adv_data), adv_data);
     gap_advertisements_enable(1);
 
 	static btstack_packet_callback_registration_t hci_event_callback_registration;
