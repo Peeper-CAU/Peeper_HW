@@ -21,6 +21,10 @@ static void	ble_packet_handler(uint8_t packet_type, uint16_t channel, uint8_t *p
                         break;
                 }
                 break;
+			case HCI_EVENT_DISCONNECTION_COMPLETE:
+                connection_handle = HCI_CON_HANDLE_INVALID;
+				printf("LE Disconnection complete\n");
+                break;
             default:
                 break;
         }
