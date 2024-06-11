@@ -7,8 +7,6 @@
 #include "hfp_util.h"
 #include "pcm_util.h"
 
-extern int btstack_main(int argc, const char *argv[]);
-
 int app_main(void)
 {
 	nvs_flash_erase();
