@@ -10,7 +10,17 @@ void	log_pcm_data(const int16_t *pcm_data, int num_samples)
     printf("\n");
 }
 
-void	send_pcm_Data(const int16_t *pcm_data, int num_samples)
+void	send_pcm_data(const int16_t *pcm_data, int num_samples)
 {
+    uint8_t	output_buffer[num_samples * 2];
 
+    for(int i = 0; i < num_samples; i++)
+	{
+        output_buffer[i * 2] = (uint8_t)(pcm_data[i] & 0xFF);
+        output_buffer[i * 2 + 1] = (uint8_t)((pcm_data[i] >> 8) & 0xFF);
+    }
+
+	for(int i = 0; i < num_samples * 2; i += 10){
+		ble_send_data(output_buffer + i, 10);
+	}
 }
