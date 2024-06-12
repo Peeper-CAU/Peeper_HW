@@ -6,6 +6,19 @@ static uint8_t characteristic_uuid[16];
 static uint16_t connection_handle = HCI_CON_HANDLE_INVALID;
 static uint16_t att_handle = 0;
 
+static btstack_timer_source_t data_timer;
+
+static void send_data_timer_handler(btstack_timer_source_t *ts)
+{
+    if (connection_handle != HCI_CON_HANDLE_INVALID && att_handle != 0)
+    {
+        uint8_t data[] = { 'H', 'e', 'l', 'l', 'o' };
+        att_server_notify(connection_handle, att_handle, data, sizeof(data));
+    }
+    btstack_run_loop_set_timer(ts, 1000);
+    btstack_run_loop_add_timer(ts);
+}
+
 static void	ble_packet_handler(uint8_t packet_type, uint16_t channel, uint8_t *packet, uint16_t size)
 {
     if (packet_type == HCI_EVENT_PACKET)
@@ -73,5 +86,9 @@ void	init_ble(void)
     hci_add_event_handler(&hci_event_callback_registration);
 
     hci_power_control(HCI_POWER_ON);
+
+	btstack_run_loop_set_timer_handler(&data_timer, send_data_timer_handler);
+    btstack_run_loop_set_timer(&data_timer, 1000);
+    btstack_run_loop_add_timer(&data_timer);
 	printf("## Initialized BLE\n");
 }
