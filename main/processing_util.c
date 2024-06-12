@@ -139,7 +139,6 @@ static void audio_terminate(void)
 }
 
 #ifdef ENABLE_HFP_WIDE_BAND_SPEECH
-#include <stdio.h>
 static void handle_pcm_data(int16_t *data, int num_samples, int num_channels, int sample_rate, void *context)
 {
     UNUSED(context);
@@ -148,7 +147,7 @@ static void handle_pcm_data(int16_t *data, int num_samples, int num_channels, in
     UNUSED(num_samples);
     UNUSED(num_channels);
 
-	log_pcm_data(data, num_samples);
+	send_pcm_data(data, num_samples);
 
 #if (SCO_DEMO_MODE == SCO_DEMO_MODE_MICROPHONE)
     btstack_ring_buffer_write(&audio_output_ring_buffer, (uint8_t *)data, num_samples * num_channels * 2);
