@@ -8,6 +8,7 @@
 #include "hci.h"
 #include "l2cap.h"
 
+void	ble_send_data(uint8_t *data, uint16_t length);
 void	init_ble(void);
 
 #endif
